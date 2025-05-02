@@ -46,8 +46,8 @@ export async function POST(req: Request) {
     headers: {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://jorgevegafullstack.com',
-      'X-Title': 'Jorge Vega Chatbot',
+      'HTTP-Referer': process.env.NEXT_PUBLIC_CHAT_REFERER || '',
+      'X-Title': process.env.NEXT_PUBLIC_CHAT_TITLE || '',
     },
     body: JSON.stringify({
       model: 'openai/gpt-4o',
