@@ -6,11 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "firebase": "^11.6.1",
-    "next": "15.3.1",
+    "next": "^15.3.1",
     "openai": "^4.96.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -22,6 +23,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "firebase-tools": "^14.2.2",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.5",
     "typescript": "^5"
