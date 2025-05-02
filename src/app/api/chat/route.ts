@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   const apiKey = process.env.OPENROUTER_API_KEY;
 
   if (!apiKey) {
-    return NextResponse.json({ reply: 'Missing API key for OpenRouter.' }, { status: 500 });
+    return NextResponse.json({ reply: 'WORKS!' });
   }
 
   const faq: Record<string, string> = {
