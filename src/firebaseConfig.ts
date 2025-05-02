@@ -1,18 +1,16 @@
-// src/firebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAOiyFxv5P8AT4omMclZpxu8iJbE1AdE1w",
-  authDomain: "jvegachatbot.firebaseapp.com",
-  projectId: "jvegachatbot",
-  storageBucket: "jvegachatbot.appspot.com",
-  messagingSenderId: "1026857207115",
-  appId: "1:1026857207115:web:96f3c6edfe859e0bf054ce",
-  measurementId: "G-G3KG58TXR5"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
 };
 
-// Inicializar Firebase solo una vez
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
