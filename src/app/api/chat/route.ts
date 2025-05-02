@@ -5,9 +5,10 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 export async function POST(req: Request) {
   const { message } = await req.json();
   const apiKey = process.env.OPENROUTER_API_KEY;
+  return NextResponse.json({ reply: 'WORKS!' });
 
   if (!apiKey) {
-    return NextResponse.json({ reply: 'WORKS!' });
+    return NextResponse.json({ reply: 'Missing API key for OpenRouter.' }, { status: 500 });
   }
 
   const faq: Record<string, string> = {
