@@ -2,30 +2,12 @@ import { NextResponse } from 'next/server';
 import { db } from '@/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
-// --- CORS preflight handler ---
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-  });
-}
-
 export async function POST(req: Request) {
   const { message } = await req.json();
   const apiKey = process.env.OPENROUTER_API_KEY;
 
   if (!apiKey) {
-    return new NextResponse(JSON.stringify({ reply: 'Missing API key for OpenRouter.' }), {
-      status: 500,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-    });
+    return NextResponse.json({ reply: 'Missing API key for OpenRouter.' }, { status: 500 });
   }
 
   const faq: Record<string, string> = {
@@ -52,16 +34,10 @@ export async function POST(req: Request) {
         { sender: 'user', text: message, timestamp: new Date() },
         { sender: 'bot', text: faq[normalized], timestamp: new Date() },
       ],
-      createdAt: serverTimestamp(),
+      createdAt: serverTimestamp()
     });
 
-    return new NextResponse(JSON.stringify({ reply: faq[normalized] }), {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-    });
+    return NextResponse.json({ reply: faq[normalized] });
   }
 
   // fallback to OpenRouter
@@ -84,21 +60,19 @@ export async function POST(req: Request) {
         {
           role: 'user',
           content: message,
-        },
+        }
       ],
     }),
   });
 
+  if (!response.ok) {
+    return NextResponse.json({ reply: 'OpenRouter error' }, { status: response.status });
+  }
+
   const data = await response.json();
 
   if (!data.choices || data.choices.length === 0) {
-    return new NextResponse(JSON.stringify({ reply: 'Assistant is currently unavailable. Please try again later.' }), {
-      status: 500,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-    });
+    return NextResponse.json({ reply: 'Assistant is currently unavailable. Please try again later.' }, { status: 500 });
   }
 
   const finalReply = data.choices[0].message.content;
@@ -109,14 +83,8 @@ export async function POST(req: Request) {
       { sender: 'user', text: message, timestamp: new Date() },
       { sender: 'bot', text: finalReply, timestamp: new Date() },
     ],
-    createdAt: serverTimestamp(),
+    createdAt: serverTimestamp()
   });
 
-  return new NextResponse(JSON.stringify({ reply: finalReply }), {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    },
-  });
+  return NextResponse.json({ reply: finalReply });
 }
