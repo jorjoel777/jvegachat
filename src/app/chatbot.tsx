@@ -19,8 +19,7 @@ export default function Chatbot() {
     if (!input.trim()) return;
 
     setMessages(prev => [...prev, `🧍 You: ${input}`]);
-
-    const res = await fetch('/api/chat', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`, {
       method: 'POST',
       body: JSON.stringify({ message: input }),
     });
