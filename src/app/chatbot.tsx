@@ -9,8 +9,8 @@ export default function Chatbot() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
 
   const predefinedQuestions = [
-    "What services do you offer?",
-    "What technologies do you work with?",
+    "why did Jorge create this page?",
+    "what technologies do you work with?",
     "How do I contact Jorge directly?",
     "I want to hire Jorge",
   ];
@@ -21,6 +21,9 @@ export default function Chatbot() {
     setMessages(prev => [...prev, `🧍 You: ${input}`]);
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`, {
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ message: input }),
     });
 
