@@ -1,4 +1,3 @@
-// src/pages/api/chat.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -36,18 +35,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     const normalized = message.trim().toLowerCase();
+    const matchedKey = Object.keys(faq).find((key) => normalized.includes(key));
 
-    if (faq[normalized]) {
+    if (matchedKey) {
+      const reply = faq[matchedKey];
+
       await addDoc(collection(db, 'chat_sessions'), {
         sessionId: crypto.randomUUID(),
         messages: [
           { sender: 'user', text: message, timestamp: new Date() },
-          { sender: 'bot', text: faq[normalized], timestamp: new Date() },
+          { sender: 'bot', text: reply, timestamp: new Date() },
         ],
         createdAt: serverTimestamp(),
       });
 
-      return res.status(200).json({ reply: faq[normalized] });
+      return res.status(200).json({ reply });
     }
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -64,7 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         messages: [
           {
             role: 'system',
-            content: `You are the assistant of Jorge Vega. Only answer questions about his services, stack, and work. For anything else, respond: "Jorge will provide more details personally.`,
+            content: `You are the assistant of Jorge Vega. Only answer questions about his services, stack, and work. For anything else, respond: "Jorge will provide more details personally."`,
           },
           {
             role: 'user',
@@ -84,6 +86,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!finalReply) {
       return res.status(500).json({ reply: 'Assistant is currently unavailable. Please try again later.' });
     }
+
     await addDoc(collection(db, 'chat_sessions'), {
       sessionId: crypto.randomUUID(),
       messages: [
@@ -92,6 +95,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
       createdAt: serverTimestamp(),
     });
+
     return res.status(200).json({ reply: finalReply });
   } catch (err) {
     console.error(err);
