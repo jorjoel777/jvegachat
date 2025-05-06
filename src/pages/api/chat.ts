@@ -21,8 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const faq: Record<string, string> = {
-      "how can i work with jorge?": "For inquiries or collaboration, please leave your contact info below and Jorge will get in touch shortly.",
-      "i want to hire jorge": "Please leave your name, email, and phone so Jorge can reach out directly.",
+      "how can i work with jorge?": "For inquiries or collaboration, please leave your contact info below and Jorge will get in touch shortly. Fill out the contact form below and Jorge will reply as soon as possible.",
+      "i want to hire jorge": "Please leave your name, email, and phone so Jorge can reach out directly. Fill out the contact form below and Jorge will reply as soon as possible.",
       "how do i contact jorge directly?": "You're almost there! Fill out the contact form below and Jorge will reply as soon as possible.",
       "what services do you offer?": "Jorge Vega offers full-stack web development, modern frontends using React, backend integration with Node.js or Firebase, and API-driven solutions tailored to your business.",
       "how can i contact you?": "You can reach Jorge through the contact form or by email at jorgevegb@outlook.com.",
@@ -64,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         messages: [
           {
             role: 'system',
-            content: `You are the assistant of Jorge Vega...`,
+            content: `You are the assistant of Jorge Vega. Only answer questions about his services, stack, and work. For anything else, respond: "Jorge will provide more details personally.`,
           },
           {
             role: 'user',
@@ -82,7 +82,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const finalReply = data?.choices?.[0]?.message?.content;
 
     if (!finalReply) {
-      return res.status(500).json({ reply: 'Assistant is currently unavailable.' });
+      return res.status(500).json({ reply: 'Assistant is currently unavailable. Please try again later.' });
     }
     await addDoc(collection(db, 'chat_sessions'), {
       sessionId: crypto.randomUUID(),
