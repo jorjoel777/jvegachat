@@ -19,15 +19,63 @@ export default function Chatbot() {
     if (!input.trim()) return;
 
     setMessages(prev => [...prev, `🧍 You: ${input}`]);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message: input }),
-    });
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
+try {
+  const res = await fetch(`${baseUrl}/api/chat`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: input }),
+  });
 
-    const data = await res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.reply || 'Unexpected error');
+
+  setMessages(prev => [...prev, `🤖 VegaBot: ${data.reply}`]);
+  const normalizedInput = input.trim().toLowerCase();
+  const normalizedReply = data.reply.toLowerCase();
+
+  const shouldShowForm = (
+    normalizedInput.includes("hire jorge") ||
+    normalizedInput.includes("contact jorge") ||
+    normalizedReply.includes("leave your contact") ||
+    normalizedReply.includes("fill out the contact form") ||
+    normalizedReply.includes("contact you directly")
+  );
+  if (shouldShowForm) setShowForm(true);
+
+} catch (err: any) {
+  console.error("Chat error:", err.message);
+  setMessages(prev => [...prev, "❌ VegaBot is currently unavailable. Please try again later."]);
+}
+try {
+  const res = await fetch(`${baseUrl}/api/chat`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: input }),
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.reply || 'Unexpected error');
+
+  setMessages(prev => [...prev, `🤖 VegaBot: ${data.reply}`]);
+  const normalizedInput = input.trim().toLowerCase();
+  const normalizedReply = data.reply.toLowerCase();
+
+  const shouldShowForm = (
+    normalizedInput.includes("hire jorge") ||
+    normalizedInput.includes("contact jorge") ||
+    normalizedReply.includes("leave your contact") ||
+    normalizedReply.includes("fill out the contact form") ||
+    normalizedReply.includes("contact you directly")
+  );
+  if (shouldShowForm) setShowForm(true);
+
+} catch (err: any) {
+  console.error("Chat error:", err.message);
+  setMessages(prev => [...prev, "❌ VegaBot is currently unavailable. Please try again later."]);
+}
+
+    
     setMessages(prev => [...prev, `🤖 VegaBot: ${data.reply}`]);
 
     // Detecta si la respuesta sugiere contacto
