@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       "can you help me with my existing project?": "Absolutely. Jorge Vega can join ongoing projects to refactor, optimize or add new features, depending on your needs.",
       "do you offer design services?": "While Jorge Vega focuses mainly on development, he can collaborate with UI/UX designers and help bring design concepts into fully responsive, functional applications.",
       "who is jorge vega?": "Jorge Vega is a full-stack developer passionate about building impactful digital solutions. With experience across industries and technologies, he offers tailored software for business success.",
-      "why did jorge vega create this page?": "This page was created by Jorge Vega to showcase his development services and provide an interactive way for potential clients to connect and learn more about his work."
+      "why did Jorge create this page?": "This page was created by Jorge Vega to showcase his development services and provide an interactive way for potential clients to connect and learn more about his work."
     };
 
     const normalized = message.trim().toLowerCase();
