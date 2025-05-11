@@ -23,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       "how can i work with jorge?": "For inquiries or collaboration, please leave your contact info below and Jorge will get in touch shortly. Fill out the contact form below and Jorge will reply as soon as possible.",
       "i want to hire jorge": "Please leave your name, email, and phone so Jorge can reach out directly. Fill out the contact form below and Jorge will reply as soon as possible.",
       "how do i contact jorge directly?": "You're almost there! Fill out the contact form below and Jorge will reply as soon as possible.",
+      "why did Jorge create this page?": "This page was created by Jorge Vega to showcase his development services and provide an interactive way for potential clients to connect and learn more about his work.",
       "what services do you offer?": "Jorge Vega offers full-stack web development, modern frontends using React, backend integration with Node.js or Firebase, and API-driven solutions tailored to your business.",
       "how can i contact you?": "You can reach Jorge through the contact form or by email at jorgevegb@outlook.com.",
       "what technologies do you work with?": "Jorge Vega specializes in React, Next.js, Tailwind CSS, Firebase, Node.js, and REST/GraphQL APIs.",
@@ -30,8 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       "how long have you been in development?": "Jorge Vega has several years of experience building software solutions across industries such as education, e-commerce, and digital services.",
       "can you help me with my existing project?": "Absolutely. Jorge Vega can join ongoing projects to refactor, optimize or add new features, depending on your needs.",
       "do you offer design services?": "While Jorge Vega focuses mainly on development, he can collaborate with UI/UX designers and help bring design concepts into fully responsive, functional applications.",
-      "who is jorge vega?": "Jorge Vega is a full-stack developer passionate about building impactful digital solutions. With experience across industries and technologies, he offers tailored software for business success.",
-      "why did Jorge create this page?": "This page was created by Jorge Vega to showcase his development services and provide an interactive way for potential clients to connect and learn more about his work."
+      "who is jorge vega?": "Jorge Vega is a full-stack developer passionate about building impactful digital solutions. With experience across industries and technologies, he offers tailored software for business success."
     };
 
     const normalized = message.trim().toLowerCase();
