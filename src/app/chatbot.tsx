@@ -9,7 +9,7 @@ export default function Chatbot() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
 
   const predefinedQuestions = [
-    "why did Jorge create this page?",
+    "why did jorge create this page?",
     "what technologies do you work with?",
     "How do I contact Jorge directly?",
     "I want to hire Jorge",

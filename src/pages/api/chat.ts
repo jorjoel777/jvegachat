@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       "how can i work with jorge?": "For inquiries or collaboration, please leave your contact info below and Jorge will get in touch shortly. Fill out the contact form below and Jorge will reply as soon as possible.",
       "i want to hire jorge": "Please leave your name, email, and phone so Jorge can reach out directly. Fill out the contact form below and Jorge will reply as soon as possible.",
       "how do i contact jorge directly?": "You're almost there! Fill out the contact form below and Jorge will reply as soon as possible.",
-      "why did Jorge create this page?": "This page was created by Jorge Vega to showcase his development services and provide an interactive way for potential clients to connect and learn more about his work.",
+      "why did jorge create this page?": "This page was created by Jorge Vega to showcase his development services and provide an interactive way for potential clients to connect and learn more about his work.",
       "what services do you offer?": "Jorge Vega offers full-stack web development, modern frontends using React, backend integration with Node.js or Firebase, and API-driven solutions tailored to your business.",
       "how can i contact you?": "You can reach Jorge through the contact form or by email at jorgevegb@outlook.com.",
       "what technologies do you work with?": "Jorge Vega specializes in React, Next.js, Tailwind CSS, Firebase, Node.js, and REST/GraphQL APIs.",
@@ -66,7 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         messages: [
           {
             role: 'system',
-            content: `You are the assistant of Jorge Vega. Only answer questions about his services, stack, and work. For anything else, respond: "Jorge will provide more details personally."`,
+            content: `You are the assistant of Jorge Vega. Only answer questions about his services, stack, and work. For anything else, respond: "Jorge will provide more details personally at jorgevegb@outlook.com."`,
           },
           {
             role: 'user',
